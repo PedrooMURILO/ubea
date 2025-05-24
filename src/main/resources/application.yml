@@ -1,1 +1,16 @@
-spring.application.name=ubea
+spring:
+  application:
+    name: ubea
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://DESKTOP-HSK5A7F:1433;databaseName=db_ubea;encrypt=false
+    username: dev
+    password: 12345678
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect:
+    show-sql: false
+    open-in-view: false
