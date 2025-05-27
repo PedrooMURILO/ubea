@@ -2,7 +2,7 @@ package com.abp.ubea.config;
 
 import com.abp.ubea.entities.UserEntity;
 import com.abp.ubea.entities.enums.UserRole;
-import com.abp.ubea.repositories.CatRepository;
+import com.abp.ubea.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ import java.util.Arrays;
 public class DatabaseSeeding implements CommandLineRunner {
 
     @Autowired
-    private CatRepository catRepository;
+    private UserRepository catRepository;
 
     @Override
     public void run(String... args) throws Exception {
