@@ -1,5 +1,6 @@
 package com.abp.ubea.controllers;
 
+import com.abp.ubea.dtos.UserDTO;
 import com.abp.ubea.entities.UserEntity;
 import com.abp.ubea.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +20,14 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<UserEntity>> findAll() {
-        List<UserEntity> users = userService.findAll();
+    public ResponseEntity<List<UserDTO>> findAll() {
+        List<UserDTO> users = userService.findAll();
         return ResponseEntity.ok().body(users);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserEntity> findById(@PathVariable Integer id) {
-        UserEntity user = userService.findById(id);
+    public ResponseEntity<UserDTO> findById(@PathVariable Integer id) {
+        UserDTO user = userService.findById(id);
         return ResponseEntity.ok().body(user);
     }
 }
