@@ -18,16 +18,18 @@ public class UserEntity implements Serializable {
     private String password;
     private UserRole role;
     private Boolean enabled;
+    private String phone;
 
     public UserEntity() {}
 
-    public UserEntity(Integer id, String username, String email, String password, UserRole role, Boolean enabled) {
+    public UserEntity(Integer id, String username, String email, String password, UserRole role, Boolean enabled, String phone) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
         this.enabled = enabled;
+        this.phone = phone;
     }
 
     public Integer getId() {
@@ -78,14 +80,22 @@ public class UserEntity implements Serializable {
         this.enabled = enabled;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof UserEntity that)) return false;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getUsername(), that.getUsername()) && Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getPassword(), that.getPassword()) && getRole() == that.getRole() && Objects.equals(getEnabled(), that.getEnabled());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getUsername(), that.getUsername()) && Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getPassword(), that.getPassword()) && getRole() == that.getRole() && Objects.equals(getEnabled(), that.getEnabled()) && Objects.equals(getPhone(), that.getPhone());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getUsername(), getEmail(), getPassword(), getRole(), getEnabled());
+        return Objects.hash(getId(), getUsername(), getEmail(), getPassword(), getRole(), getEnabled(), getPhone());
     }
 }

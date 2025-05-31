@@ -16,16 +16,18 @@ public class UserDTO implements Serializable {
     private String password;
     private UserRole role;
     private Boolean enabled;
+    private String phone;
 
     public UserDTO() {}
 
-    public UserDTO(Integer id, String username, String email, String password, UserRole role, Boolean enabled) {
+    public UserDTO(Integer id, String username, String email, String password, UserRole role, Boolean enabled, String phone) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
         this.enabled = enabled;
+        this.phone = phone;
     }
 
     public Integer getId() {
@@ -76,14 +78,22 @@ public class UserDTO implements Serializable {
         this.enabled = enabled;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof UserDTO userDTO)) return false;
-        return Objects.equals(getId(), userDTO.getId()) && Objects.equals(getUsername(), userDTO.getUsername()) && Objects.equals(getEmail(), userDTO.getEmail()) && Objects.equals(getPassword(), userDTO.getPassword()) && getRole() == userDTO.getRole() && Objects.equals(getEnabled(), userDTO.getEnabled());
+        return Objects.equals(getId(), userDTO.getId()) && Objects.equals(getUsername(), userDTO.getUsername()) && Objects.equals(getEmail(), userDTO.getEmail()) && Objects.equals(getPassword(), userDTO.getPassword()) && getRole() == userDTO.getRole() && Objects.equals(getEnabled(), userDTO.getEnabled()) && Objects.equals(getPhone(), userDTO.getPhone());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getUsername(), getEmail(), getPassword(), getRole(), getEnabled());
+        return Objects.hash(getId(), getUsername(), getEmail(), getPassword(), getRole(), getEnabled(), getPhone());
     }
 }

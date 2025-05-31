@@ -15,6 +15,7 @@ public class UserMapper {
         dto.setPassword(user.getPassword());
         dto.setRole(user.getRole());
         dto.setEnabled(user.getEnabled());
+        dto.setPhone(user.getPhone());
         return dto;
     }
 
@@ -26,6 +27,7 @@ public class UserMapper {
         user.setPassword(dto.getPassword());
         user.setRole(dto.getRole());
         user.setEnabled(dto.getEnabled());
+        user.setPhone(dto.getPhone());
         return user;
     }
 }
