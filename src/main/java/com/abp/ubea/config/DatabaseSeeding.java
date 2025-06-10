@@ -1,9 +1,12 @@
 package com.abp.ubea.config;
 
+import com.abp.ubea.entities.AdoptionRequestEntity;
 import com.abp.ubea.entities.CatEntity;
 import com.abp.ubea.entities.PartnerEntity;
 import com.abp.ubea.entities.UserEntity;
+import com.abp.ubea.entities.enums.InterestStatus;
 import com.abp.ubea.entities.enums.UserRole;
+import com.abp.ubea.repositories.AdoptionRequestRepository;
 import com.abp.ubea.repositories.CatRepository;
 import com.abp.ubea.repositories.PartnerRepository;
 import com.abp.ubea.repositories.UserRepository;
@@ -11,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 @Component
@@ -24,6 +28,9 @@ public class DatabaseSeeding implements CommandLineRunner {
 
     @Autowired
     private CatRepository catRepository;
+
+    @Autowired
+    private AdoptionRequestRepository adoptionRequestRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -78,5 +85,12 @@ public class DatabaseSeeding implements CommandLineRunner {
                 new CatEntity(null, "Zico", 'M', (byte) 5, "Gato preto e branco, muito carinhoso, já foi adotado.", true)
         ));
 
+        adoptionRequestRepository.saveAll(Arrays.asList(
+                new AdoptionRequestEntity(null, LocalDateTime.now(), InterestStatus.PENDING, null),
+                new AdoptionRequestEntity(null, LocalDateTime.now().minusDays(5), InterestStatus.APPROVED, LocalDateTime.now().minusDays(2)),
+                new AdoptionRequestEntity(null, LocalDateTime.now().minusDays(10), InterestStatus.REJECTED, LocalDateTime.now().minusDays(8)),
+                new AdoptionRequestEntity(null, LocalDateTime.now().minusDays(3), InterestStatus.CANCELED, null),
+                new AdoptionRequestEntity(null, LocalDateTime.now().minusDays(1), InterestStatus.PENDING, null)
+        ));
     }
 }
