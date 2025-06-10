@@ -1,8 +1,10 @@
 package com.abp.ubea.config;
 
+import com.abp.ubea.entities.CatEntity;
 import com.abp.ubea.entities.PartnerEntity;
 import com.abp.ubea.entities.UserEntity;
 import com.abp.ubea.entities.enums.UserRole;
+import com.abp.ubea.repositories.CatRepository;
 import com.abp.ubea.repositories.PartnerRepository;
 import com.abp.ubea.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +17,13 @@ import java.util.Arrays;
 public class DatabaseSeeding implements CommandLineRunner {
 
     @Autowired
-    private UserRepository catRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private PartnerRepository partnerRepository;
+
+    @Autowired
+    private CatRepository catRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -26,7 +31,7 @@ public class DatabaseSeeding implements CommandLineRunner {
         UserEntity user2 = new UserEntity(null, "Alice", "alice@gmail.com", "12342378", UserRole.ADOPTER, false, "1792399999");
         UserEntity user3 = new UserEntity(null, "Bianca", "bianca@gmail.com", "2345678", UserRole.ADMIN, true, "179995799");
 
-        catRepository.saveAll(Arrays.asList(user1, user2, user3));
+        userRepository.saveAll(Arrays.asList(user1, user2, user3));
 
         partnerRepository.saveAll(Arrays.asList(
                 new PartnerEntity(
@@ -62,8 +67,16 @@ public class DatabaseSeeding implements CommandLineRunner {
                         "Fatec Vet",
                         "Curso de veterinária da Fatec que realiza castrações e exames básicos gratuitos.",
                         "Rua Acadêmica, 1010 - Campus Universitário, São José do Rio Preto - SP",
-                        "(17) 3010-2020"
-                )
+                        "(17) 3010-2020")
         ));
+
+        catRepository.saveAll(Arrays.asList(
+                new CatEntity(null, "Mingau", 'M', (byte) 2, "Gato branco, muito dócil e brincalhão.", false),
+                new CatEntity(null, "Luna", 'F', (byte) 1, "Gatinha preta, muito curiosa e sociável.", false),
+                new CatEntity(null, "Thor", 'M', (byte) 3, "Gato tigrado forte e calmo, adora ficar no colo.", true),
+                new CatEntity(null, "Nina", 'F', (byte) 4, "Gata cinza, independente e esperta.", false),
+                new CatEntity(null, "Zico", 'M', (byte) 5, "Gato preto e branco, muito carinhoso, já foi adotado.", true)
+        ));
+
     }
 }
