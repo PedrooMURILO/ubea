@@ -2,6 +2,7 @@ package com.abp.ubea.services;
 
 import com.abp.ubea.dtos.CatDTO;
 import com.abp.ubea.entities.CatEntity;
+import com.abp.ubea.exceptions.InvalidGenderException;
 import com.abp.ubea.exceptions.ResourceNotFoundException;
 import com.abp.ubea.mappers.CatMapper;
 import com.abp.ubea.repositories.CatRepository;
@@ -35,6 +36,7 @@ public class CatService {
 
     public CatDTO create(CatDTO dto){
         CatEntity cat = catMapper.convertDTOToEntity(dto);
+        if (!validateCatGender(cat.getSex())) throw new InvalidGenderException();
         return catMapper.convertEntityToDTO(catRepository.save(cat));
     }
 
@@ -54,5 +56,9 @@ public class CatService {
     public void delete(Integer id) {
         if (!catRepository.existsById(id)) throw new ResourceNotFoundException(id);
         catRepository.deleteById(id);
+    }
+
+    private boolean validateCatGender(char gender) {
+        return gender == 'M' || gender == 'F';
     }
 }
