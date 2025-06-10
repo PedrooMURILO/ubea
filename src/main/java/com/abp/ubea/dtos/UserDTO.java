@@ -4,6 +4,8 @@ import com.abp.ubea.entities.enums.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class UserDTO implements Serializable {
@@ -17,6 +19,7 @@ public class UserDTO implements Serializable {
     private UserRole role;
     private Boolean enabled;
     private String phone;
+    private List<AdoptionRequestDTOMin> adoptionRequests = new ArrayList<>();
 
     public UserDTO() {}
 
@@ -86,14 +89,22 @@ public class UserDTO implements Serializable {
         this.phone = phone;
     }
 
+    public List<AdoptionRequestDTOMin> getAdoptionRequests() {
+        return adoptionRequests;
+    }
+
+    public void setAdoptionRequests(List<AdoptionRequestDTOMin> adoptionRequests) {
+        this.adoptionRequests = adoptionRequests;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof UserDTO userDTO)) return false;
-        return Objects.equals(getId(), userDTO.getId()) && Objects.equals(getUsername(), userDTO.getUsername()) && Objects.equals(getEmail(), userDTO.getEmail()) && Objects.equals(getPassword(), userDTO.getPassword()) && getRole() == userDTO.getRole() && Objects.equals(getEnabled(), userDTO.getEnabled()) && Objects.equals(getPhone(), userDTO.getPhone());
+        return Objects.equals(getId(), userDTO.getId()) && Objects.equals(getUsername(), userDTO.getUsername()) && Objects.equals(getEmail(), userDTO.getEmail()) && Objects.equals(getPassword(), userDTO.getPassword()) && getRole() == userDTO.getRole() && Objects.equals(getEnabled(), userDTO.getEnabled()) && Objects.equals(getPhone(), userDTO.getPhone()) && Objects.equals(getAdoptionRequests(), userDTO.getAdoptionRequests());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getUsername(), getEmail(), getPassword(), getRole(), getEnabled(), getPhone());
+        return Objects.hash(getId(), getUsername(), getEmail(), getPassword(), getRole(), getEnabled(), getPhone(), getAdoptionRequests());
     }
 }

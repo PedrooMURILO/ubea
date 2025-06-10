@@ -38,8 +38,6 @@ public class DatabaseSeeding implements CommandLineRunner {
         UserEntity user2 = new UserEntity(null, "Alice", "alice@gmail.com", "12342378", UserRole.ADOPTER, false, "1792399999");
         UserEntity user3 = new UserEntity(null, "Bianca", "bianca@gmail.com", "2345678", UserRole.ADMIN, true, "179995799");
 
-        userRepository.saveAll(Arrays.asList(user1, user2, user3));
-
         partnerRepository.saveAll(Arrays.asList(
                 new PartnerEntity(
                         null,
@@ -85,12 +83,13 @@ public class DatabaseSeeding implements CommandLineRunner {
                 new CatEntity(null, "Zico", 'M', (byte) 5, "Gato preto e branco, muito carinhoso, já foi adotado.", true)
         ));
 
-        adoptionRequestRepository.saveAll(Arrays.asList(
-                new AdoptionRequestEntity(null, LocalDateTime.now(), InterestStatus.PENDING, null),
-                new AdoptionRequestEntity(null, LocalDateTime.now().minusDays(5), InterestStatus.APPROVED, LocalDateTime.now().minusDays(2)),
-                new AdoptionRequestEntity(null, LocalDateTime.now().minusDays(10), InterestStatus.REJECTED, LocalDateTime.now().minusDays(8)),
-                new AdoptionRequestEntity(null, LocalDateTime.now().minusDays(3), InterestStatus.CANCELED, null),
-                new AdoptionRequestEntity(null, LocalDateTime.now().minusDays(1), InterestStatus.PENDING, null)
-        ));
+        AdoptionRequestEntity request1 = new AdoptionRequestEntity(null, LocalDateTime.now(), InterestStatus.PENDING, null, user3);
+        AdoptionRequestEntity request2 = new AdoptionRequestEntity(null, LocalDateTime.now().minusDays(5), InterestStatus.APPROVED, LocalDateTime.now().minusDays(2), user1);
+        AdoptionRequestEntity request3 = new AdoptionRequestEntity(null, LocalDateTime.now().minusDays(10), InterestStatus.REJECTED, LocalDateTime.now().minusDays(8), user2);
+        AdoptionRequestEntity request4 = new AdoptionRequestEntity(null, LocalDateTime.now().minusDays(3), InterestStatus.CANCELED, null, user3);
+        AdoptionRequestEntity request5 = new AdoptionRequestEntity(null, LocalDateTime.now().minusDays(1), InterestStatus.PENDING, null, user1);
+
+        userRepository.saveAll(Arrays.asList(user1, user2, user3));
+        adoptionRequestRepository.saveAll(Arrays.asList(request1, request2, request3, request4, request5));
     }
 }

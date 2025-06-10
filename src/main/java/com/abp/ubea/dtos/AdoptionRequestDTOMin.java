@@ -6,22 +6,20 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class AdoptionRequestDTO implements Serializable {
+public class AdoptionRequestDTOMin implements Serializable {
 
     private Integer id;
     private LocalDateTime requestDate;
     private InterestStatus status;
     private LocalDateTime approvalDate;
-    private UserDTOMin user;
 
-    public AdoptionRequestDTO() {}
+    public AdoptionRequestDTOMin() {}
 
-    public AdoptionRequestDTO(Integer id, LocalDateTime requestDate, InterestStatus status, LocalDateTime approvalDate, UserDTOMin user) {
+    public AdoptionRequestDTOMin(Integer id, LocalDateTime requestDate, InterestStatus status, LocalDateTime approvalDate, UserDTOMin user) {
         this.id = id;
         this.requestDate = requestDate;
         this.status = status;
         this.approvalDate = approvalDate;
-        this.user = user;
     }
 
     public Integer getId() {
@@ -56,22 +54,14 @@ public class AdoptionRequestDTO implements Serializable {
         this.approvalDate = approvalDate;
     }
 
-    public UserDTOMin getUser() {
-        return user;
-    }
-
-    public void setUser(UserDTOMin user) {
-        this.user = user;
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof AdoptionRequestDTO that)) return false;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getRequestDate(), that.getRequestDate()) && getStatus() == that.getStatus() && Objects.equals(getApprovalDate(), that.getApprovalDate()) && Objects.equals(getUser(), that.getUser());
+        if (!(o instanceof AdoptionRequestDTOMin that)) return false;
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getRequestDate(), that.getRequestDate()) && getStatus() == that.getStatus() && Objects.equals(getApprovalDate(), that.getApprovalDate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getRequestDate(), getStatus(), getApprovalDate(), getUser());
+        return Objects.hash(getId(), getRequestDate(), getStatus(), getApprovalDate());
     }
 }

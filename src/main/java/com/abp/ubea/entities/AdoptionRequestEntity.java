@@ -20,13 +20,18 @@ public class AdoptionRequestEntity implements Serializable {
     private InterestStatus status;
     private LocalDateTime approvalDate;
 
+    @ManyToOne
+    @JoinColumn(name = "adopter_id")
+    private UserEntity adopter;
+
     public AdoptionRequestEntity() {}
 
-    public AdoptionRequestEntity(Integer id, LocalDateTime requestDate, InterestStatus status, LocalDateTime approvalDate) {
+    public AdoptionRequestEntity(Integer id, LocalDateTime requestDate, InterestStatus status, LocalDateTime approvalDate, UserEntity adopter) {
         this.id = id;
         this.requestDate = requestDate;
         this.status = status;
         this.approvalDate = approvalDate;
+        this.adopter = adopter;
     }
 
     public Integer getId() {
@@ -61,14 +66,22 @@ public class AdoptionRequestEntity implements Serializable {
         this.approvalDate = approvalDate;
     }
 
+    public UserEntity getUser() {
+        return adopter;
+    }
+
+    public void setUser(UserEntity adopter) {
+        this.adopter = adopter;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof AdoptionRequestEntity that)) return false;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getRequestDate(), that.getRequestDate()) && getStatus() == that.getStatus() && Objects.equals(getApprovalDate(), that.getApprovalDate());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getRequestDate(), that.getRequestDate()) && getStatus() == that.getStatus() && Objects.equals(getApprovalDate(), that.getApprovalDate()) && Objects.equals(getUser(), that.getUser());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getRequestDate(), getStatus(), getApprovalDate());
+        return Objects.hash(getId(), getRequestDate(), getStatus(), getApprovalDate(), getUser());
     }
 }

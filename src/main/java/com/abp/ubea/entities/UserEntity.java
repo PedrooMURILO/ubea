@@ -4,6 +4,8 @@ import com.abp.ubea.entities.enums.UserRole;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +21,9 @@ public class UserEntity implements Serializable {
     private UserRole role;
     private Boolean enabled;
     private String phone;
+
+    @OneToMany(mappedBy = "adopter", fetch = FetchType.EAGER)
+    private List<AdoptionRequestEntity> adoptionRequests = new ArrayList<>();
 
     public UserEntity() {}
 
@@ -88,14 +93,22 @@ public class UserEntity implements Serializable {
         this.phone = phone;
     }
 
+    public List<AdoptionRequestEntity> getAdoptionRequests() {
+        return adoptionRequests;
+    }
+
+    public void setAdoptionRequests(List<AdoptionRequestEntity> adoptionRequests) {
+        this.adoptionRequests = adoptionRequests;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof UserEntity that)) return false;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getUsername(), that.getUsername()) && Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getPassword(), that.getPassword()) && getRole() == that.getRole() && Objects.equals(getEnabled(), that.getEnabled()) && Objects.equals(getPhone(), that.getPhone());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getUsername(), that.getUsername()) && Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getPassword(), that.getPassword()) && getRole() == that.getRole() && Objects.equals(getEnabled(), that.getEnabled()) && Objects.equals(getPhone(), that.getPhone()) && Objects.equals(getAdoptionRequests(), that.getAdoptionRequests());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getUsername(), getEmail(), getPassword(), getRole(), getEnabled(), getPhone());
+        return Objects.hash(getId(), getUsername(), getEmail(), getPassword(), getRole(), getEnabled(), getPhone(), getAdoptionRequests());
     }
 }
