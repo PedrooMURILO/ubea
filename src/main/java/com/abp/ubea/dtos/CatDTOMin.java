@@ -1,18 +1,10 @@
-package com.abp.ubea.entities;
-
-import jakarta.persistence.*;
+package com.abp.ubea.dtos;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-@Entity
-@Table(name = "tb_cats")
-public class CatEntity implements Serializable {
+public class CatDTOMin implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private Character sex;
@@ -20,12 +12,9 @@ public class CatEntity implements Serializable {
     private String description;
     private Boolean adopted;
 
-    @ManyToMany(mappedBy = "cats", fetch = FetchType.EAGER)
-    private List<AdoptionRequestEntity> requests = new ArrayList<>();
+    public CatDTOMin() {}
 
-    public CatEntity() {}
-
-    public CatEntity(Integer id, String name, Character sex, Byte age, String description, Boolean adopted) {
+    public CatDTOMin(Integer id, String name, Character sex, Byte age, String description, Boolean adopted) {
         this.id = id;
         this.name = name;
         this.sex = sex;
@@ -82,22 +71,14 @@ public class CatEntity implements Serializable {
         this.adopted = adopted;
     }
 
-    public List<AdoptionRequestEntity> getRequests() {
-        return requests;
-    }
-
-    public void setRequests(List<AdoptionRequestEntity> requests) {
-        this.requests = requests;
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof CatEntity catEntity)) return false;
-        return Objects.equals(getId(), catEntity.getId()) && Objects.equals(getName(), catEntity.getName()) && Objects.equals(getSex(), catEntity.getSex()) && Objects.equals(getAge(), catEntity.getAge()) && Objects.equals(getDescription(), catEntity.getDescription()) && Objects.equals(getAdopted(), catEntity.getAdopted()) && Objects.equals(getRequests(), catEntity.getRequests());
+        if (!(o instanceof CatDTOMin catDTOMin)) return false;
+        return Objects.equals(getId(), catDTOMin.getId()) && Objects.equals(getName(), catDTOMin.getName()) && Objects.equals(getSex(), catDTOMin.getSex()) && Objects.equals(getAge(), catDTOMin.getAge()) && Objects.equals(getDescription(), catDTOMin.getDescription()) && Objects.equals(getAdopted(), catDTOMin.getAdopted());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getSex(), getAge(), getDescription(), getAdopted(), getRequests());
+        return Objects.hash(getId(), getName(), getSex(), getAge(), getDescription(), getAdopted());
     }
 }

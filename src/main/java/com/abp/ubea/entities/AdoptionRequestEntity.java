@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -23,6 +25,14 @@ public class AdoptionRequestEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "adopter_id")
     private UserEntity adopter;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "tb_ordered_cats",
+            joinColumns = @JoinColumn(name = "adoption_request_id"),
+            inverseJoinColumns = @JoinColumn(name = "cat_id")
+    )
+    private List<CatEntity> cats = new ArrayList<>();
 
     public AdoptionRequestEntity() {}
 
@@ -74,14 +84,22 @@ public class AdoptionRequestEntity implements Serializable {
         this.adopter = adopter;
     }
 
+    public List<CatEntity> getCats() {
+        return cats;
+    }
+
+    public void setCats(List<CatEntity> cats) {
+        this.cats = cats;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof AdoptionRequestEntity that)) return false;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getRequestDate(), that.getRequestDate()) && getStatus() == that.getStatus() && Objects.equals(getApprovalDate(), that.getApprovalDate()) && Objects.equals(getUser(), that.getUser());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getRequestDate(), that.getRequestDate()) && getStatus() == that.getStatus() && Objects.equals(getApprovalDate(), that.getApprovalDate()) && Objects.equals(adopter, that.adopter) && Objects.equals(getCats(), that.getCats());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getRequestDate(), getStatus(), getApprovalDate(), getUser());
+        return Objects.hash(getId(), getRequestDate(), getStatus(), getApprovalDate(), adopter, getCats());
     }
 }

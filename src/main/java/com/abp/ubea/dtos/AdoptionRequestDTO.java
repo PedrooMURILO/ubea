@@ -4,6 +4,8 @@ import com.abp.ubea.entities.enums.InterestStatus;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class AdoptionRequestDTO implements Serializable {
@@ -13,6 +15,7 @@ public class AdoptionRequestDTO implements Serializable {
     private InterestStatus status;
     private LocalDateTime approvalDate;
     private UserDTOMin user;
+    private List<CatDTOMin> cats = new ArrayList<>();
 
     public AdoptionRequestDTO() {}
 
@@ -64,14 +67,22 @@ public class AdoptionRequestDTO implements Serializable {
         this.user = user;
     }
 
+    public List<CatDTOMin> getCats() {
+        return cats;
+    }
+
+    public void setCats(List<CatDTOMin> cats) {
+        this.cats = cats;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof AdoptionRequestDTO that)) return false;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getRequestDate(), that.getRequestDate()) && getStatus() == that.getStatus() && Objects.equals(getApprovalDate(), that.getApprovalDate()) && Objects.equals(getUser(), that.getUser());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getRequestDate(), that.getRequestDate()) && getStatus() == that.getStatus() && Objects.equals(getApprovalDate(), that.getApprovalDate()) && Objects.equals(getUser(), that.getUser()) && Objects.equals(getCats(), that.getCats());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getRequestDate(), getStatus(), getApprovalDate(), getUser());
+        return Objects.hash(getId(), getRequestDate(), getStatus(), getApprovalDate(), getUser(), getCats());
     }
 }

@@ -1,6 +1,8 @@
 package com.abp.ubea.dtos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class CatDTO implements Serializable {
@@ -11,6 +13,7 @@ public class CatDTO implements Serializable {
     private Byte age;
     private String description;
     private Boolean adopted;
+    private List<AdoptionRequestDTOMin> requests = new ArrayList<>();
 
     public CatDTO() {}
 
@@ -71,14 +74,22 @@ public class CatDTO implements Serializable {
         this.adopted = adopted;
     }
 
+    public List<AdoptionRequestDTOMin> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(List<AdoptionRequestDTOMin> requests) {
+        this.requests = requests;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof CatDTO catDTO)) return false;
-        return Objects.equals(getId(), catDTO.getId()) && Objects.equals(getName(), catDTO.getName()) && Objects.equals(getSex(), catDTO.getSex()) && Objects.equals(getAge(), catDTO.getAge()) && Objects.equals(getDescription(), catDTO.getDescription()) && Objects.equals(getAdopted(), catDTO.getAdopted());
+        return Objects.equals(getId(), catDTO.getId()) && Objects.equals(getName(), catDTO.getName()) && Objects.equals(getSex(), catDTO.getSex()) && Objects.equals(getAge(), catDTO.getAge()) && Objects.equals(getDescription(), catDTO.getDescription()) && Objects.equals(getAdopted(), catDTO.getAdopted()) && Objects.equals(getRequests(), catDTO.getRequests());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getSex(), getAge(), getDescription(), getAdopted());
+        return Objects.hash(getId(), getName(), getSex(), getAge(), getDescription(), getAdopted(), getRequests());
     }
 }

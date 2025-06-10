@@ -75,13 +75,11 @@ public class DatabaseSeeding implements CommandLineRunner {
                         "(17) 3010-2020")
         ));
 
-        catRepository.saveAll(Arrays.asList(
-                new CatEntity(null, "Mingau", 'M', (byte) 2, "Gato branco, muito dócil e brincalhão.", false),
-                new CatEntity(null, "Luna", 'F', (byte) 1, "Gatinha preta, muito curiosa e sociável.", false),
-                new CatEntity(null, "Thor", 'M', (byte) 3, "Gato tigrado forte e calmo, adora ficar no colo.", true),
-                new CatEntity(null, "Nina", 'F', (byte) 4, "Gata cinza, independente e esperta.", false),
-                new CatEntity(null, "Zico", 'M', (byte) 5, "Gato preto e branco, muito carinhoso, já foi adotado.", true)
-        ));
+        CatEntity cat1 = new CatEntity(null, "Mingau", 'M', (byte) 2, "Gato branco, muito dócil e brincalhão.", false);
+        CatEntity cat2 = new CatEntity(null, "Luna", 'F', (byte) 1, "Gatinha preta, muito curiosa e sociável.", false);
+        CatEntity cat3 = new CatEntity(null, "Thor", 'M', (byte) 3, "Gato tigrado forte e calmo, adora ficar no colo.", true);
+        CatEntity cat4 = new CatEntity(null, "Nina", 'F', (byte) 4, "Gata cinza, independente e esperta.", false);
+        CatEntity cat5 = new CatEntity(null, "Zico", 'M', (byte) 5, "Gato preto e branco, muito carinhoso, já foi adotado.", true);
 
         AdoptionRequestEntity request1 = new AdoptionRequestEntity(null, LocalDateTime.now(), InterestStatus.PENDING, null, user3);
         AdoptionRequestEntity request2 = new AdoptionRequestEntity(null, LocalDateTime.now().minusDays(5), InterestStatus.APPROVED, LocalDateTime.now().minusDays(2), user1);
@@ -89,6 +87,18 @@ public class DatabaseSeeding implements CommandLineRunner {
         AdoptionRequestEntity request4 = new AdoptionRequestEntity(null, LocalDateTime.now().minusDays(3), InterestStatus.CANCELED, null, user3);
         AdoptionRequestEntity request5 = new AdoptionRequestEntity(null, LocalDateTime.now().minusDays(1), InterestStatus.PENDING, null, user1);
 
+        request1.getCats().add(cat1);
+        request2.getCats().add(cat2);
+        request2.getCats().add(cat3);
+        request2.getCats().add(cat5);
+        request3.getCats().add(cat3);
+        request4.getCats().add(cat4);
+        request4.getCats().add(cat2);
+        request4.getCats().add(cat1);
+        request5.getCats().add(cat5);
+        request5.getCats().add(cat3);
+
+        catRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5));
         userRepository.saveAll(Arrays.asList(user1, user2, user3));
         adoptionRequestRepository.saveAll(Arrays.asList(request1, request2, request3, request4, request5));
     }
