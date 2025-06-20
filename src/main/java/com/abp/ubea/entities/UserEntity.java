@@ -14,12 +14,24 @@ public class UserEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idUser")
     private Integer id;
+
+    @Column(nullable = false, length = 100)
     private String username;
+
+    @Column(unique = true, nullable = false, length = 100)
     private String email;
+
+    @Column(nullable = false, length = 50)
     private String password;
+
+    @Enumerated(EnumType.STRING)
     private UserRole role;
+
     private Boolean enabled;
+
+    @Column(length = 30)
     private String phone;
 
     @OneToMany(mappedBy = "adopter", fetch = FetchType.EAGER)

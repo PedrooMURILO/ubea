@@ -15,6 +15,7 @@ public class AdoptionRequestEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idAdoptionRequest")
     private Integer id;
     private LocalDateTime requestDate;
 
@@ -23,14 +24,14 @@ public class AdoptionRequestEntity implements Serializable {
     private LocalDateTime approvalDate;
 
     @ManyToOne
-    @JoinColumn(name = "adopter_id")
+    @JoinColumn(name = "adopterId")
     private UserEntity adopter;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "tb_ordered_cats",
-            joinColumns = @JoinColumn(name = "adoption_request_id"),
-            inverseJoinColumns = @JoinColumn(name = "cat_id")
+            joinColumns = @JoinColumn(name = "adoptionRequestId"),
+            inverseJoinColumns = @JoinColumn(name = "catId")
     )
     private List<CatEntity> cats = new ArrayList<>();
 

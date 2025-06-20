@@ -13,6 +13,7 @@ public class CatEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idCat")
     private Integer id;
     private String name;
     private Character sex;
