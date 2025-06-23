@@ -1,5 +1,7 @@
 package com.abp.ubea.dtos;
 
+import com.abp.ubea.entities.enums.UserRole;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -8,14 +10,16 @@ public class UserDTOMin implements Serializable {
     private Integer id;
     private String username;
     private String email;
+    private UserRole role;
     private String phone;
 
     public UserDTOMin() {}
 
-    public UserDTOMin(Integer id, String username, String email, String phone) {
+    public UserDTOMin(Integer id, String username, String email, UserRole role, String phone) {
         this.id = id;
         this.username = username;
         this.email = email;
+        this.role = role;
         this.phone = phone;
     }
 
@@ -43,6 +47,14 @@ public class UserDTOMin implements Serializable {
         this.email = email;
     }
 
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -54,11 +66,11 @@ public class UserDTOMin implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof UserDTOMin that)) return false;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getUsername(), that.getUsername()) && Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getPhone(), that.getPhone());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getUsername(), that.getUsername()) && Objects.equals(getEmail(), that.getEmail()) && getRole() == that.getRole() && Objects.equals(getPhone(), that.getPhone());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getUsername(), getEmail(), getPhone());
+        return Objects.hash(getId(), getUsername(), getEmail(), getRole(), getPhone());
     }
 }

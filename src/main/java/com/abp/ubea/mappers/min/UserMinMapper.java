@@ -12,6 +12,7 @@ public class UserMinMapper {
         dto.setId(user.getId());
         dto.setUsername(user.getUsername());
         dto.setEmail(user.getEmail());
+        dto.setRole(user.getRole());
         dto.setPhone(user.getPhone());
         return dto;
     }
@@ -21,6 +22,7 @@ public class UserMinMapper {
         user.setId(dto.getId());
         user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
+        user.setRole(user.getRole());
         user.setPhone(dto.getPhone());
         return user;
     }
